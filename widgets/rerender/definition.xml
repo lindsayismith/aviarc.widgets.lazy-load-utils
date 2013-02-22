@@ -1,0 +1,12 @@
+<widget name="rerender"
+        factory-class="com.aviarc.framework.toronto.widget.DefaultWidgetProviderFactoryImpl"
+        action="y">
+    <attributes>
+        <attribute name="widget" type="string" mandatory="true" />
+    </attributes>
+    <includes>
+        <js-include file="get.js"/>
+        <js-include file="Rerender.js"/>
+    </includes>
+    <js-constructor>new YAHOO.com.aviarc.framework.toronto.widget.core.action.v1_4_2.Rerender()</js-constructor>
+</widget>

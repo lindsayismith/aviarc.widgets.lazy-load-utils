@@ -1,0 +1,21 @@
+<container position="{@position}" width="{@width}" height="{@height}" left="{@left}" right="{@right}" top="{@top}" bottom="{@bottom}" margin="{@margin}" margin-top="{@margin-top}" margin-bottom="{@margin-bottom}" margin-left="{@margin-left}" margin-right="{@margin-right}" padding="{@padding}" padding-top="{@padding-top}" padding-bottom="{@padding-bottom}" padding-left="{@padding-left}" padding-right="{@padding-right}" xmlns:action="urn:aviarc:widget:com.aviarc.toronto.widget.core.action">    
+    <action:when event="onShow">
+        <action:if>
+            <action:not><action:call-widget-method method="{@name}-lazy-load.isRendered"/></action:not>
+            <then>
+                <rerender widget="{@name}-lazy-load"/>
+            </then>
+        </action:if>
+    </action:when>
+    <action:when event="onBindComplete">
+        <action:if>
+            <action:call-widget-method method="{@name}.isVisible"/>
+            <then>
+                 <rerender widget="{@name}-lazy-load"/>
+            </then>
+        </action:if>
+    </action:when>        
+    <lazy-load height="100%" width="100%" name="{@name}-lazy-load">
+        <content/>
+    </lazy-load>
+</container>

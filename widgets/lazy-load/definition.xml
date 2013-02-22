@@ -1,0 +1,14 @@
+<widget name="lazy-load"
+        factory-class="com.aviarc.framework.toronto.widget.DefaultWidgetProviderFactoryImpl"
+        rendered-node-factory="lazyload.widgets.LazyLoad"
+        >
+
+    <attributes>
+        <attribute name="lazy" default="y"/>
+    </attributes>
+    <includes>
+        <js-include file="LazyLoad.js"/>
+    </includes>
+    <children allowed="y"/>
+    <js-constructor>new YAHOO.lazyLoad.LazyLoad()</js-constructor>
+</widget>
