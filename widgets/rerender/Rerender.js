@@ -102,6 +102,11 @@ YAHOO
 
         run: function (state) {
             this._targetWidget = state.getExecutionState().getWidgetContext().findWidget(this.getAttribute('widget', state));
+            
+            
+            // Now find the highest widget node from the same source context
+            this._targetWidget = this.getHighestWidgetNode();
+            
             // Add the action implementation here
             this.reRender();
         },
@@ -128,6 +133,8 @@ YAHOO
                 return;
             }
 
+            
+            
             this._rerender = true;
             var i;
             // deactivate widget so it stops listening for further events - it is going to be re-rendered and refreshed
@@ -325,7 +332,32 @@ YAHOO
 
             return dataContextsToRemove;
         },
-
+        
+        getHighestWidgetNode: function() {
+            // Last node up from our widget node that has the same source context
+            var currentNode = this._targetWidget.getWidgetContext().getWidgetNode();
+            var localXMLCtx = currentNode.getXMLContext();
+            
+            var nextParent = currentNode.getParentNode();
+            if (nextParent === null) {
+                return currentNode;
+            }
+            var nextXMLCtx = nextParent.getXMLContext();
+            
+            while (this.xmlContextEqual(localXMLCtx, nextXMLCtx) && nextParent !== null) {
+                currentNode = nextParent;
+                nextParent = currentNode.getParentNode();
+                nextXMLCtx = nextParent.getXMLContext();
+            }
+            
+            return currentNode;
+        },        
+        
+        xmlContextEqual: function(ctx1, ctx2) {
+            return (ctx1.getSourceContext().getDocumentPath() === ctx2.getSourceContext().getDocumentPath()
+                  && ctx1.getSourceContext().getElementPath() === ctx2.getSourceContext().getElementPath());
+        },
+        
         _hasWidgetAsAncestor : function(dataContext) {
             var node = dataContext;
             while (node) {
