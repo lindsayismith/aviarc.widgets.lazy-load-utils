@@ -679,6 +679,7 @@ YAHOO
                 handleMalformedResponse("Error applying new data rule updates: " + e + " : " + dataRules);
                 return;
             }
+            Toronto.internal.DataRules.addDataRules(dataRules);
 
             // Update data contexts
             var dataContextTree = this.rerender._targetWidget.getCurrentDataContext().getDataContextTree();
